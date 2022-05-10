@@ -1,0 +1,108 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String    @id @default(uuid())
+  matricula String    @unique
+  email     String    @unique
+  name      String
+  password  String
+  lastLogin DateTime?
+  photoUrl  String?
+  isActive  Boolean   @default(true)
+  role      ERole     @default(student)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id])
+}
+
+enum ERole {
+  superadmin
+  admin
+  coordinator
+  student
+}
+
+
+model Course {
+  id                   String   @id @default(uuid())
+  name                 String
+  totalHoursToComplete Int
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  campusId String
+  campus   Campus @relation(fields: [campusId], references: [id])
+
+  User                    User[]
+}
+
+model Campus {
+  id                  String   @id @default(uuid())
+  slogan              String
+  cep                 String
+  logradouro          String
+  number              String
+  complement          String?
+  district            String
+  city                String
+  phone               String
+  siteUrl             String
+  email               String
+  logo                String
+  certificateTemplate String?
+  primaryColor        String?
+  secundaryColor      String?
+  tertiaryColor       String?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  universityId String
+  university   University @relation(fields: [universityId], references: [id])
+
+  stateId String
+  state   State  @relation(fields: [stateId], references: [id])
+
+  course Course[]
+}
+
+model University {
+  id        String   @id @default(uuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  campus Campus[]
+}
+
+model Country {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  State State[]
+}
+
+model State {
+  id        String   @id @default(uuid())
+  uf        String   @unique
+  name      String   @unique
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  countryId String
+  country   Country @relation(fields: [countryId], references: [id])
+
+  campus Campus[]
+}
