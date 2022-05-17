@@ -9,6 +9,8 @@ import UserController from "./controllers/User/UserController";
 import CourseController from "./controllers/Course/CourseController";
 import CampusController from "./controllers/Campus/CampusCotroller";
 import UniverityController from "./controllers/University/UniversityCotroller";
+import CategoryController from "./controllers/Category/CategoryController";
+import MyAttendanceController from "./controllers/MyAttendance/MyAttendance";
 
 import verifyJWT from "./services/verifyJwt";
 import uploadImage from "./services/firebase";
@@ -32,6 +34,10 @@ const courseController = new CourseController();
 const campusController = new CampusController();
 
 const univerityController = new UniverityController();
+
+const categoryController = new CategoryController();
+
+const myAttendance = new MyAttendanceController();
 
 
 //Auth
@@ -85,7 +91,6 @@ router.post('/courses',
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().min(5).required(),
-      totalHoursToComplete: Joi.number().required(),
       campusId: Joi.string().guid().required(),
   }},
 { abortEarly: false, messages: messages }), courseController.createCourse);
@@ -150,3 +155,59 @@ router.patch('/university/:id',
   }, 
   { abortEarly: false, messages: messages }),
   univerityController.update);
+
+  // Category
+
+router.get('/category', categoryController.find);
+
+router.post('/category',
+  authService(['superadmin', 'admin']), 
+  celebrate({
+    [Segments.BODY]: {
+      name: Joi.string().min(3).required(),
+      slug: Joi.string().min(3).required(),
+    },
+  }, 
+  { abortEarly: false, messages: messages }),
+  categoryController.create);
+
+router.patch('/category/:id',
+  authService(['superadmin', 'admin']), 
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().guid().required(),
+    },
+    [Segments.BODY]: {
+      name: Joi.string().min(3).required(),
+      slug: Joi.string().min(3).required(),
+    },
+  }, 
+  { abortEarly: false, messages: messages }),
+  categoryController.update);
+
+  // MyAttendance
+
+router.get('/myAttendance', categoryController.find);
+
+router.post('/myAttendance',
+  authService(['superadmin', 'admin']), 
+  celebrate({
+    [Segments.BODY]: {
+      eventId: Joi.string().guid().required(),
+    },
+  }, 
+  { abortEarly: false, messages: messages }),
+  categoryController.create);
+
+router.patch('/myAttendance/:id',
+  authService(['superadmin', 'admin']), 
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().guid().required(),
+    },
+    [Segments.BODY]: {
+      eventId: Joi.string().guid().required(),
+    },
+  }, 
+  { abortEarly: false, messages: messages }),
+  categoryController.update);

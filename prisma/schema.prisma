@@ -23,6 +23,8 @@ model User {
 
   courseId String
   course   Course @relation(fields: [courseId], references: [id])
+  
+  Event    Event[]
 }
 
 enum ERole {
@@ -36,7 +38,6 @@ enum ERole {
 model Course {
   id                   String   @id @default(uuid())
   name                 String
-  totalHoursToComplete Int
   createdAt            DateTime @default(now())
   updatedAt            DateTime @updatedAt
 
@@ -105,4 +106,44 @@ model State {
   country   Country @relation(fields: [countryId], references: [id])
 
   campus Campus[]
+}
+
+model MyAttendance {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  eventId   String
+  Event Event @relation(fields: [eventId], references: [id])
+}
+
+model Category {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  slug      String   @unique
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Event {
+  id          String    @id @default(uuid())
+  name        String
+  qrCodeUrl   String    @unique
+  startDate   DateTime
+  endDate     DateTime
+  images      String
+  description String
+  price       Float
+  amoutHours  Float
+  modality    String
+  meetingUrl  String?   @unique 
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  userId String
+  user   User @relation(fields: [userId], references: [id])
+
+  MyAttendance MyAttendance[]
+  //category many to many
 }
