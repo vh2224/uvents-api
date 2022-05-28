@@ -111,7 +111,7 @@ class EventController {
                 state: state, 
                 country: country, 
                 longitude: longitude, 
-                latidude: latitude,
+                latitude: latitude,
             },
             where: {
                 id: id,
