@@ -254,7 +254,7 @@ class UserController {
         userId: userId,
       },
       include: {
-        Event: true,
+        event: true,
       }
     })
 
