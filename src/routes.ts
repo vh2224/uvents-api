@@ -10,7 +10,7 @@ import CourseController from "./controllers/Course/CourseController";
 import CampusController from "./controllers/Campus/CampusCotroller";
 import UniverityController from "./controllers/University/UniversityCotroller";
 import CategoryController from "./controllers/Category/CategoryController";
-import MyAttendanceController from "./controllers/MyAttendance/MyAttendance";
+import EventController from "./controllers/Event/EventController";
 
 import verifyJWT from "./services/verifyJwt";
 import uploadImage from "./services/firebase";
@@ -37,7 +37,7 @@ const univerityController = new UniverityController();
 
 const categoryController = new CategoryController();
 
-const myAttendance = new MyAttendanceController();
+const eventController = new EventController();
 
 
 //Auth
@@ -79,6 +79,8 @@ router.put('/users', celebrate({
 router.put('/users/avatar', verifyJWT, Multer.single('photoUrl'), uploadImage, userController.updateUserAvatar);
 
 router.delete('/users', userController.deleteUser);
+
+router.get('/users/events', verifyJWT, authService(['superadmin', 'admin', 'coordinator', 'student']), userController.myEvents);
 
 
 // Courses
@@ -185,29 +187,84 @@ router.patch('/category/:id',
   { abortEarly: false, messages: messages }),
   categoryController.update);
 
-  // MyAttendance
+  // Event
+  //finalizar rotas eventos
+  router.get('/event', eventController.find);
 
-router.get('/myAttendance', categoryController.find);
-
-router.post('/myAttendance',
+  router.post('/event',
   authService(['superadmin', 'admin']), 
   celebrate({
     [Segments.BODY]: {
-      eventId: Joi.string().guid().required(),
+      name: Joi.string().min(3).required(),
+      qrCodeUrl: Joi.string().pattern(new RegExp('((http|https)://)(www.)?[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)')).required(), 
+      startDate: Joi.date().min(5).required(), 
+      endDate: Joi.date().min(5).required(),
+      images: Joi.string().min(10).required(),
+      description: Joi.string().min(10).required(), 
+      price: Joi.number().min(1).required(),
+      amoutHours: Joi.number().min(1).required(),
+      modality: Joi.string().min(4).required(),
+      meetingUrl: Joi.string().pattern(new RegExp('((http|https)://)(www.)?[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)')).required(), 
+      userId: Joi.string().guid().required(),
+      cep: Joi.string().pattern(new RegExp('[0-9]{5}-[0-9]{3}')).required(),
+      logradouro: Joi.string().min(5).required(),
+      number: Joi.number().min(1).required(),
+      district: Joi.string().min(4).required(),
+      city: Joi.string().min(4).required(),
+      address: Joi.string().min(5).required(), 
+      complement: Joi.string().min(5),
+      state: Joi.string().min(3).required(), 
+      country: Joi.string().min(4).required(), 
+      longitude: Joi.string().min(5).required(),
+      latitude: Joi.string().min(5).required(),
     },
   }, 
   { abortEarly: false, messages: messages }),
-  categoryController.create);
+  eventController.create);
 
-router.patch('/myAttendance/:id',
+router.patch('/event/:id',
   authService(['superadmin', 'admin']), 
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.string().guid().required(),
     },
     [Segments.BODY]: {
-      eventId: Joi.string().guid().required(),
+      name: Joi.string().min(3).required(),
+      qrCodeUrl: Joi.string().pattern(new RegExp('((http|https)://)(www.)?[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)')).required(), 
+      startDate: Joi.date().min(5).required(), 
+      endDate: Joi.date().min(5).required(),
+      images: Joi.string().min(10).required(),
+      description: Joi.string().min(10).required(), 
+      price: Joi.number().min(1).required(),
+      amoutHours: Joi.number().min(1).required(),
+      modality: Joi.string().min(4).required(),
+      meetingUrl: Joi.string().pattern(new RegExp('((http|https)://)(www.)?[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)')).required(), 
+      userId: Joi.string().guid().required(),
+      cep: Joi.string().pattern(new RegExp('[0-9]{5}-[0-9]{3}')).required(),
+      logradouro: Joi.string().min(5).required(),
+      number: Joi.number().min(1).required(),
+      district: Joi.string().min(4).required(),
+      city: Joi.string().min(4).required(),
+      address: Joi.string().min(5).required(), 
+      complement: Joi.string().min(5),
+      state: Joi.string().min(3).required(), 
+      country: Joi.string().min(4).required(), 
+      longitude: Joi.string().min(5).required(),
+      latitude: Joi.string().min(5).required(),
     },
   }, 
   { abortEarly: false, messages: messages }),
-  categoryController.update);
+  eventController.update);
+
+  // UsersEvents
+
+router.post('/users/events',
+  authService(['superadmin', 'admin']), 
+  celebrate({
+    [Segments.BODY]: {
+      eventId: Joi.string().guid().required(),
+      userId: Joi.string().guid().required(),
+    },
+  }, 
+  { abortEarly: false, messages: messages }),
+ userController.registerEvents);

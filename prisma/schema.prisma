@@ -23,8 +23,10 @@ model User {
 
   courseId String
   course   Course @relation(fields: [courseId], references: [id])
-  
-  Event    Event[]
+
+  event       Event[]
+  attendance  Attendance[]
+  UsersEvents UsersEvents[]
 }
 
 enum ERole {
@@ -34,17 +36,16 @@ enum ERole {
   student
 }
 
-
 model Course {
-  id                   String   @id @default(uuid())
-  name                 String
-  createdAt            DateTime @default(now())
-  updatedAt            DateTime @updatedAt
+  id        String   @id @default(uuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   campusId String
   campus   Campus @relation(fields: [campusId], references: [id])
 
-  User                    User[]
+  User User[]
 }
 
 model Campus {
@@ -108,13 +109,16 @@ model State {
   campus Campus[]
 }
 
-model MyAttendance {
+model Attendance {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  eventId   String
-  Event Event @relation(fields: [eventId], references: [id])
+  eventId String
+  Event   Event  @relation(fields: [eventId], references: [id])
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
 }
 
 model Category {
@@ -124,12 +128,14 @@ model Category {
   isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  EventsCategories EventsCategories[]
 }
 
 model Event {
-  id          String    @id @default(uuid())
+  id          String   @id @default(uuid())
   name        String
-  qrCodeUrl   String    @unique
+  qrCodeUrl   String   @unique
   startDate   DateTime
   endDate     DateTime
   images      String
@@ -137,13 +143,49 @@ model Event {
   price       Float
   amoutHours  Float
   modality    String
-  meetingUrl  String?   @unique 
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  
-  userId String
-  user   User @relation(fields: [userId], references: [id])
+  meetingUrl  String?  @unique
+  cep         String?
+  logradouro  String
+  address     String
+  number      String
+  complement  String?
+  district    String
+  city        String
+  state       String
+  country     String
+  longitude   String
+  latitude    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  MyAttendance MyAttendance[]
-  //category many to many
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  attendance       Attendance[]
+  eventsCategories EventsCategories[]
+  UsersEvents      UsersEvents[]
+}
+
+model EventsCategories {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  eventId String
+  event   Event  @relation(fields: [eventId], references: [id])
+}
+
+model UsersEvents {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  eventId String
+  event   Event  @relation(fields: [eventId], references: [id])
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
 }

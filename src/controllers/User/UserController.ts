@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import { PrismaClient, User } from "@prisma/client";
+import { PrismaClient, User, UsersEvents } from "@prisma/client";
 const prisma = new PrismaClient();
 
 import bcrypt from 'bcrypt';
@@ -245,6 +245,45 @@ class UserController {
 
     return res.status(200).json({});
   };
+
+  async myEvents(req: Request, res: Response) {
+    const { userId }: IJWTDecodedProps = jwt_decode(req.headers['authorization']);
+
+    let myEvents = await prisma.usersEvents.findMany({
+      where: {
+        userId: userId,
+      },
+      include: {
+        Event: true,
+      }
+    })
+
+    return res.status(200).json(myEvents);
+  }
+
+  async registerEvents(req: Request, res: Response) {
+    const { userId }: IJWTDecodedProps = jwt_decode(req.headers['authorization']);
+    const { eventId }: UsersEvents = req.body;
+
+    const isExists = await prisma.usersEvents.findFirst({
+      where: {
+        eventId: eventId,
+        userId: userId,
+      }
+    });
+    
+    if (isExists) throw new AppError(`${isExists.eventId} já cadastrado(a).`);
+  
+    let registerEvents = await prisma.usersEvents.create({
+      data: {
+        eventId: eventId,
+        userId: userId,
+      },
+    });
+
+    return res.json(registerEvents);
+  }
 }
 
 export default UserController;
+

@@ -12,6 +12,11 @@ class EventController {
         const event = await prisma.event.findMany({
             include: {
                 user: true,
+                eventsCategories: {
+                    include: {
+                        category: true,
+                    }
+                }
             }
         });
 
@@ -19,7 +24,7 @@ class EventController {
     }
 
     async create(req: Request, res: Response) {
-        const { name, qrCodeUrl, startDate, endDate, images, description, price, amoutHours, modality, meetingUrl, userId }: Event = req.body;
+        const { name, qrCodeUrl, startDate, endDate, images, description, price, amoutHours, modality, meetingUrl, userId, cep, logradouro, address, number, complement, district, city, state, country, longitude, latitude }: Event = req.body;
 
         const isValidUser = await prisma.user.findFirst({
             where: {
@@ -44,6 +49,17 @@ class EventController {
                 modality: modality,
                 meetingUrl: meetingUrl,
                 userId: userId,
+                cep: cep, 
+                logradouro: logradouro,
+                address: address,
+                number: number,
+                complement: complement, 
+                district: district, 
+                city: city, 
+                state: state, 
+                country: country, 
+                longitude: longitude, 
+                latidude: latitude,
             },
         })
 
@@ -52,7 +68,7 @@ class EventController {
     
     async update(req: Request, res: Response) {
         const { id } = req.params;
-        const { name, qrCodeUrl, startDate, endDate, images, description, price, amoutHours, modality, meetingUrl, userId }: Event = req.body;
+        const { name, qrCodeUrl, startDate, endDate, images, description, price, amoutHours, modality, meetingUrl, userId, cep, logradouro, address, number, complement, district, city, state, country, longitude, latitude  }: Event = req.body;
 
         const isExists = await prisma.event.findUnique({
             where: {
@@ -85,6 +101,17 @@ class EventController {
                 modality: modality,
                 meetingUrl: meetingUrl,
                 userId: userId,
+                cep: cep, 
+                logradouro: logradouro,
+                address: address,
+                number: number,
+                complement: complement, 
+                district: district, 
+                city: city, 
+                state: state, 
+                country: country, 
+                longitude: longitude, 
+                latidude: latitude,
             },
             where: {
                 id: id,
