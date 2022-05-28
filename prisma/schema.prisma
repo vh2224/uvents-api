@@ -144,7 +144,7 @@ model Event {
   amoutHours  Float
   modality    String
   meetingUrl  String?  @unique
-  cep         String?
+  cep         String
   logradouro  String
   address     String
   number      String
