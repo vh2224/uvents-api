@@ -254,7 +254,15 @@ class UserController {
         userId: userId,
       },
       include: {
-        event: true,
+        event: {
+          include: {
+            eventsCategories: {
+              include: {
+                category: true,
+              }
+            }
+          }
+        }
       }
     })
 
@@ -263,17 +271,19 @@ class UserController {
 
   async registerEvents(req: Request, res: Response) {
     const { userId }: IJWTDecodedProps = jwt_decode(req.headers['authorization']);
-    const { eventId }: UsersEvents = req.body;
+    const { eventId } = req.params;
 
     const isExists = await prisma.usersEvents.findFirst({
       where: {
-        eventId: eventId,
-        userId: userId,
+        AND: {
+          eventId: eventId,
+          userId: userId,
+        }
       }
     });
     
     if (isExists) throw new AppError(`${isExists.eventId} já cadastrado(a).`);
-  
+    
     let registerEvents = await prisma.usersEvents.create({
       data: {
         eventId: eventId,

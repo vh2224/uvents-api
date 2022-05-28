@@ -258,12 +258,11 @@ router.patch('/event/:id',
 
   // UsersEvents
 
-router.post('/users/events',
-  authService(['superadmin', 'admin']), 
+router.post('/users/events/:eventId',
+  authService(['superadmin', 'admin', 'student', 'coordinator']), 
   celebrate({
-    [Segments.BODY]: {
+    [Segments.PARAMS]: {
       eventId: Joi.string().guid().required(),
-      userId: Joi.string().guid().required(),
     },
   }, 
   { abortEarly: false, messages: messages }),
