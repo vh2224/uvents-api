@@ -1,0 +1,30 @@
+_id: req_1a4f86e5ffbe4664bee21669ec76445c
+type: Request
+parentId: fld_dbbf1ec1f6ea4fed9ad98937694872b0
+modified: 1655820516537
+created: 1654827904490
+url: "{{ _.base_url }}/user-activities"
+name: List
+description: ""
+method: GET
+body: {}
+parameters:
+  - id: pair_7a2b584086034c13a16aca0531561994
+    name: status
+    value: '["waiting", "approved", "approved_parcial", "recused", "canceled"]'
+    description: ""
+    disabled: false
+headers: []
+authentication:
+  type: bearer
+  prefix: ""
+  token: "{% response 'body', 'req_0f37c8b287944718ad88013adbf04ecd',
+    'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+metaSortKey: -1651314346039.25
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

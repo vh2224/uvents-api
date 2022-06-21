@@ -1,0 +1,30 @@
+_id: req_65932dad6772414b96682a0f960c7eac
+type: Request
+parentId: fld_db400a2294cf45dd9f347e9e1ecd0ecc
+modified: 1655820467796
+created: 1654827904469
+url: "{{ _.base_url }}/auth"
+name: Auth
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"matricula": "201910906",
+    	"password": "201910906"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_85a06d5347754a27a0c48e1920be920f
+authentication: {}
+metaSortKey: -1651119269089
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

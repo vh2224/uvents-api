@@ -1,0 +1,10 @@
+_id: fld_50fe8e22954f4325ac3819d92ede6bd0
+type: RequestGroup
+parentId: fld_77b50cf6d4954da89dab5bb139babf23
+modified: 1654882378253
+created: 1654827904530
+name: Find Users By Course
+description: ""
+environment: {}
+environmentPropertyOrder: null
+metaSortKey: -1653268532949.75

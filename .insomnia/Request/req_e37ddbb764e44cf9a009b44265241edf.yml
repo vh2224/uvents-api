@@ -1,0 +1,42 @@
+_id: req_e37ddbb764e44cf9a009b44265241edf
+type: Request
+parentId: fld_01ce3234b9ca410387289e5834bf63e6
+modified: 1655820628348
+created: 1654827904595
+url: "{{ _.base_url }}/activities"
+name: List
+description: ""
+method: GET
+body: {}
+parameters:
+  - id: pair_7a2b584086034c13a16aca0531561994
+    name: status
+    value: '["waiting", "approved", "approved_parcial", "recused", "canceled"]'
+    description: ""
+    disabled: false
+  - id: pair_4e62d151210c46849cc424a2ab9d3508
+    name: page
+    value: "1"
+    description: ""
+  - id: pair_fa93f9bd02744a7bb622762ec3f96f53
+    name: perPage
+    value: "10"
+    description: ""
+  - id: pair_8d2423692d3a4532ae4482f517d20dc9
+    name: search
+    value: ""
+    description: ""
+headers: []
+authentication:
+  type: bearer
+  prefix: ""
+  token: "{% response 'body', 'req_0f37c8b287944718ad88013adbf04ecd',
+    'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+metaSortKey: -1651314346039.25
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

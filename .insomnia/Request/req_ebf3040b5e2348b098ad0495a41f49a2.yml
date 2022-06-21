@@ -1,0 +1,25 @@
+_id: req_ebf3040b5e2348b098ad0495a41f49a2
+type: Request
+parentId: fld_ac76a73a06f64217a950fff4ad2934f2
+modified: 1655820586995
+created: 1654828675778
+url: "{{ _.base_url }}/users/events/"
+name: List
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication:
+  type: bearer
+  prefix: ""
+  token: "{% response 'body', 'req_65932dad6772414b96682a0f960c7eac',
+    'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+metaSortKey: -1651342209348.5
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

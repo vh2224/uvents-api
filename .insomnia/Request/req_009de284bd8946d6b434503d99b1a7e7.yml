@@ -1,0 +1,36 @@
+_id: req_009de284bd8946d6b434503d99b1a7e7
+type: Request
+parentId: fld_77b50cf6d4954da89dab5bb139babf23
+modified: 1655820603180
+created: 1654827904539
+url: "{{ _.base_url }}/users/avatar"
+name: UpdateAvatar
+description: ""
+method: PUT
+body:
+  mimeType: multipart/form-data
+  params:
+    - id: pair_c52323db04dd4689a78e788e16d7798f
+      name: photoUrl
+      value: ""
+      description: ""
+      type: file
+      fileName: C:\Users\Igor\Pictures\60680294.jpg
+parameters: []
+headers:
+  - name: Content-Type
+    value: multipart/form-data
+    id: pair_3f1e5d36d0c245d096b82401d38ae55f
+authentication:
+  type: bearer
+  prefix: ""
+  token: "{% response 'body', 'req_0f37c8b287944718ad88013adbf04ecd',
+    'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+metaSortKey: -1651230741632
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

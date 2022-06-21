@@ -1,0 +1,35 @@
+_id: req_af8da81d9a8745558cdaf0001814216f
+type: Request
+parentId: fld_01ce3234b9ca410387289e5834bf63e6
+modified: 1655820630564
+created: 1654827904600
+url: "{{ _.base_url }}/activities/598a7a7a-5fb6-4488-b1af-f26f97fdb954"
+name: Update
+description: ""
+method: PUT
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"integralizedTime": 30,
+    	"status": "approved_parcial",
+    	"justification": "zzzzzzz"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_e25441723c72487b8d4079dde3dc28f7
+authentication:
+  type: bearer
+  prefix: ""
+  token: "{% response 'body', 'req_0f37c8b287944718ad88013adbf04ecd',
+    'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+metaSortKey: -1651307379005.3125
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

@@ -1,0 +1,10 @@
+_id: fld_db400a2294cf45dd9f347e9e1ecd0ecc
+type: RequestGroup
+parentId: wrk_cad8314e519d42e19714309cf2425c8d
+modified: 1654827904465
+created: 1654827904465
+name: Auth
+description: ""
+environment: {}
+environmentPropertyOrder: null
+metaSortKey: -1651342209361

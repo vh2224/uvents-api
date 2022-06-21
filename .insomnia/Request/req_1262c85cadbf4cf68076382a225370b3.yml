@@ -1,0 +1,25 @@
+_id: req_1262c85cadbf4cf68076382a225370b3
+type: Request
+parentId: fld_e2d418ecd680485c881ccb7dac7ad4f1
+modified: 1655820497483
+created: 1654827904618
+url: "{{ _.base_url }}/campus/3123ef19-bb7d-4125-bd67-0d31f84bb3c8"
+name: List One
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication:
+  type: bearer
+  prefix: ""
+  token: "{% response 'body', 'req_0f37c8b287944718ad88013adbf04ecd',
+    'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+metaSortKey: -1651341773959.6836
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

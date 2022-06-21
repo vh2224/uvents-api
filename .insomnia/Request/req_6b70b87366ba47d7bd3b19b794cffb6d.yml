@@ -1,0 +1,41 @@
+_id: req_6b70b87366ba47d7bd3b19b794cffb6d
+type: Request
+parentId: fld_9c7b779f672040a4a537ccf4f40a3e24
+modified: 1655820578046
+created: 1654827904519
+url: "{{ _.base_url }}/user/import"
+name: Import
+description: ""
+method: POST
+body:
+  mimeType: multipart/form-data
+  params:
+    - name: delimiter
+      value: ;
+      id: pair_f4146f3ef6fe4697bcbdf54bc7cc771b
+    - id: pair_d301b4a77dd44def8c37de66ae5bd1d3
+      name: file
+      value: ""
+      description: ""
+      type: file
+      fileName: D:\PROJETOS\UNIVERSIDADE DE VASSOURAS\TCC\backend\seeds\LEADS.csv
+parameters: []
+headers:
+  - name: Content-Type
+    value: multipart/form-data
+    id: pair_6fd94b426f954dc7af4e21b6ab061102
+    disabled: false
+authentication:
+  type: bearer
+  prefix: ""
+  token: "{% response 'body', 'req_0f37c8b287944718ad88013adbf04ecd',
+    'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+  disabled: false
+metaSortKey: -1651342210536.375
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

@@ -1,0 +1,56 @@
+_id: req_2522b2f58ef1444e9bf9861c2e160a71
+type: Request
+parentId: fld_dbbf1ec1f6ea4fed9ad98937694872b0
+modified: 1655820573405
+created: 1654827904496
+url: "{{ _.base_url }}/user-activities"
+name: Create
+description: ""
+method: POST
+body:
+  mimeType: multipart/form-data
+  params:
+    - id: pair_805de807aafa4ee6aa9e29541da9d29e
+      name: description
+      value: Curso Typescript2
+      description: ""
+    - id: pair_a9375e48502449faa53e07699053c57c
+      name: companyName
+      value: Udemy Co
+      description: ""
+    - id: pair_5d1a164fcfd5422d9eb9b8d04a1183b4
+      name: informedTime
+      value: "50"
+      description: ""
+    - id: pair_16e990c84a344e0b9f8a6ea67561c104
+      name: cnpj
+      value: 37.165.078/0001-76
+      description: ""
+    - id: pair_7117d0f8cfb4410f86a7583082ba405f
+      name: categoryId
+      value: 6ed85339-882e-422a-afd2-0b32fd60abe5
+      description: ""
+    - id: pair_79b85ff6d8504319ab669efff915b76c
+      name: certificateUrl
+      value: ""
+      description: ""
+      type: file
+      fileName: C:\Users\Igor\Pictures\1581598693049.jpg
+parameters: []
+headers:
+  - name: Content-Type
+    value: multipart/form-data
+    id: pair_99bebd6c854c4a3aa7afd5864adcc252
+authentication:
+  type: bearer
+  prefix: ""
+  token: "{% response 'body', 'req_0f37c8b287944718ad88013adbf04ecd',
+    'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+metaSortKey: -1651312604280.7656
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

@@ -1,0 +1,24 @@
+_id: req_78a0be5bdd3b4b22b478809b2e70fa44
+type: Request
+parentId: fld_da8dacdac2a341bc870ebd17168b7895
+modified: 1655820608789
+created: 1655076185847
+url: "{{ _.base_url }}/users/events/4acd1c16-5a02-41f9-8cf5-dd05af797a8e"
+name: Register Presence
+description: ""
+method: POST
+body: {}
+parameters: []
+headers: []
+authentication:
+  type: bearer
+  token: "{% response 'body', 'req_65932dad6772414b96682a0f960c7eac',
+    'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+metaSortKey: -1655076185847
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

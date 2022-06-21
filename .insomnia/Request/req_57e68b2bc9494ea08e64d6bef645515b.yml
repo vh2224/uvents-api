@@ -1,0 +1,40 @@
+_id: req_57e68b2bc9494ea08e64d6bef645515b
+type: Request
+parentId: fld_77b50cf6d4954da89dab5bb139babf23
+modified: 1655820598927
+created: 1654827904547
+url: "{{ _.base_url }}/users"
+name: Create
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"matricula": "201910906",
+    	"password": "201910906",
+    	"name": "Igor Brown Ramos",
+    	"email": "ibrownramos@gmail.com",
+    	"role": "superadmin",
+    	"courseId": "2e682e01-dcc4-4862-a38d-b9dfcbc97de3"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_6fd94b426f954dc7af4e21b6ab061102
+    disabled: false
+authentication:
+  type: bearer
+  prefix: ""
+  token: "{% response 'body', 'req_0f37c8b287944718ad88013adbf04ecd',
+    'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+  disabled: false
+metaSortKey: -1651342211749.25
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

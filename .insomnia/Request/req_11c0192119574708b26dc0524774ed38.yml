@@ -1,0 +1,32 @@
+_id: req_11c0192119574708b26dc0524774ed38
+type: Request
+parentId: fld_db400a2294cf45dd9f347e9e1ecd0ecc
+modified: 1655820486042
+created: 1654827904478
+url: "{{ _.base_url }}/refresh-token"
+name: Refresh Token
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: >-
+    {
+    	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYXRyaWN1bGEiOiIyMDE5MTA5MDYiLCJ1c2VySWQiOiJlYTViMDM0YS1mM2JjLTRlMDMtOTQ5ZS1hNWU2NDc5NjE0ZTkiLCJpYXQiOjE2NTQxODEzODMsImV4cCI6MTY1NDI2Nzc4M30.d1PJj4iG8hITxv_cY7h-bcM8IAaAQ8KsoBNm_3x4o3I"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_85a06d5347754a27a0c48e1920be920f
+authentication:
+  type: bearer
+  token: "{% response 'body', 'req_0f37c8b287944718ad88013adbf04ecd',
+    'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+metaSortKey: -1651119269076.5
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

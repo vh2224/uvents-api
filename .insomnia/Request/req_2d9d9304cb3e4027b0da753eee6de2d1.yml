@@ -1,0 +1,35 @@
+_id: req_2d9d9304cb3e4027b0da753eee6de2d1
+type: Request
+parentId: fld_6325a4e9b81c4155a8c38cb1d557f0f0
+modified: 1655820492420
+created: 1654827904586
+url: "{{ _.base_url }}/categories/c222dccf-e358-4804-8398-7caa6daa0764"
+name: Update
+description: ""
+method: PATCH
+body:
+  mimeType: application/json
+  text: >-
+    {
+    	"macroActivities": "Ações Sócios Ambientais",
+    	"description": "É uma série de passeios históricos por bairros da região. Uma “aula ao vivo”, onde se é mostrada uma cidade moldada pelo seu conjunto arquitetônico e seus bens imateriais (personagens, acontecimentos, cheiros e sabores). São trabalhar os aspectos históricos, literários, sociológicos.",
+    	"isActive": true
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_9552fed72d934017b0d9d400a6863ce9
+authentication:
+  type: bearer
+  prefix: ""
+  token: "{% response 'body', 'req_0f37c8b287944718ad88013adbf04ecd',
+    'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+metaSortKey: -1651331760591.9062
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

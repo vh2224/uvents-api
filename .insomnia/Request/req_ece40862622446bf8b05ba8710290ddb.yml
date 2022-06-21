@@ -1,0 +1,33 @@
+_id: req_ece40862622446bf8b05ba8710290ddb
+type: Request
+parentId: fld_c4572c5ff3e04c8c9613bb713b7b3448
+modified: 1655820625021
+created: 1654827904636
+url: "{{ _.base_url }}/university/74e6e26a-63f6-468f-ab8d-a767ae2bd8bc"
+name: Update
+description: ""
+method: PATCH
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"name": "Universidade de Vassouras"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_23b851e611e84a7c9ac8d87ee6ab3259
+authentication:
+  type: bearer
+  prefix: ""
+  token: "{% response 'body', 'req_0f37c8b287944718ad88013adbf04ecd',
+    'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+metaSortKey: -1651340903232.0508
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

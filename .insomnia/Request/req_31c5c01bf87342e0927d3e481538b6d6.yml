@@ -1,0 +1,37 @@
+_id: req_31c5c01bf87342e0927d3e481538b6d6
+type: Request
+parentId: fld_50fe8e22954f4325ac3819d92ede6bd0
+modified: 1655820575621
+created: 1654827904533
+url: "{{ _.base_url }}/users/course/d3bf8868-4229-493f-9e32-90ace6271ea4"
+name: List
+description: ""
+method: GET
+body: {}
+parameters:
+  - id: pair_f9af82a5bb6a4ebc8648f6cfd63d84df
+    name: page
+    value: "1"
+    description: ""
+  - id: pair_4f6f364f12e84e529e68e96ba04efb91
+    name: perPage
+    value: "10"
+    description: ""
+  - id: pair_a41fcf65741149a8b0af530700f1ab06
+    name: search
+    value: ""
+    description: ""
+headers: []
+authentication:
+  type: bearer
+  prefix: ""
+  token: "{% response 'body', 'req_0f37c8b287944718ad88013adbf04ecd',
+    'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+metaSortKey: -1651342214175
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

@@ -1,0 +1,25 @@
+_id: req_d6003c100d164e7e93c2a9ad83f8e44e
+type: Request
+parentId: fld_c4572c5ff3e04c8c9613bb713b7b3448
+modified: 1655820619385
+created: 1654827904627
+url: "{{ _.base_url }}/university"
+name: List
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication:
+  type: bearer
+  prefix: ""
+  token: "{% response 'body', 'req_0f37c8b287944718ad88013adbf04ecd',
+    'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+metaSortKey: -1651342209323.5
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
