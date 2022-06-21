@@ -7,11 +7,15 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import jwt_decode from "jwt-decode";
 
+import { isPast, addHours } from 'date-fns';
+import { parseISO } from 'date-fns/esm';
+
 import AppError from '../../errors/AppError';
 
 import { IJWTDecodedProps } from '../../services/verifyJwt';
 
 import { trimBeforeAndAfter } from '../../utils/trimBeforeAfter';
+import { calcDistance } from '../../utils/calcDistance';
 
 class UserController {
 
@@ -290,6 +294,9 @@ class UserController {
   async registerEvents(req: Request, res: Response) {
     const { userId }: IJWTDecodedProps = jwt_decode(req.headers['authorization']);
     const { eventId } = req.params;
+    const { latitude: userLatitude, longitude: userLongitude } = req.query;
+
+    console.log(userLatitude, userLongitude)
 
     const isExists = await prisma.usersEvents.findFirst({
       where: {
@@ -300,15 +307,36 @@ class UserController {
       }
     });
 
-    if (isExists) throw new AppError(`Você já está cadastrado(a) neste evento.`);
+    if (isExists) throw new AppError(`presence-has-already-been-confirmed`);
 
     const event = await prisma.event.findUnique({
       where: {
         id: eventId,
+      },
+      select: {
+        id: true,
+        latitude: true,
+        longitude: true,
+        startDate: true,
+        endDate: true,
       }
     });
 
-    if (event) {
+    const MAX_TOLERANCE_DISTANCE_IN_KM = 15; //15 KM
+
+    if (!isPast(event.startDate)) {
+      throw new AppError('event-not-started');
+    }
+
+    if (isPast(addHours(event.endDate, 6))) {
+      throw new AppError('finished-event');
+    }
+
+    if (calcDistance(Number(event.latitude), Number(event.longitude), Number(userLatitude), Number(userLongitude)) > MAX_TOLERANCE_DISTANCE_IN_KM) {
+      throw new AppError('not-presence-in-location');
+    }
+
+    if (event.id) {
       const userEvent = await prisma.usersEvents.create({
         data: {
           eventId: eventId,

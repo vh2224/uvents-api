@@ -268,6 +268,10 @@ router.post('/users/events/:eventId',
     [Segments.PARAMS]: {
       eventId: Joi.string().guid().required(),
     },
+    [Segments.QUERY]: {
+      latitude: Joi.string().required(),
+      longitude: Joi.string().required(),
+    },
   },
     { abortEarly: false, messages: messages }),
   userController.registerEvents);
