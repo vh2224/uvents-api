@@ -47,7 +47,7 @@ class UserController {
 
       let userId = user.id;
 
-      
+
       await prisma.user.update({
         where: {
           matricula: user.matricula,
@@ -101,7 +101,7 @@ class UserController {
           },
           {
             matricula: {
-              contains : String(search),
+              contains: String(search),
               mode: 'insensitive',
             }
           },
@@ -249,7 +249,7 @@ class UserController {
   async myEvents(req: Request, res: Response) {
     const { userId }: IJWTDecodedProps = jwt_decode(req.headers['authorization']);
 
-    let myEvents = await prisma.usersEvents.findMany({
+    const myEvents = await prisma.usersEvents.findMany({
       where: {
         userId: userId,
       },
@@ -257,16 +257,34 @@ class UserController {
         event: {
           include: {
             eventsCategories: {
-              include: {
-                category: true,
-              }
+              select: {
+                category: {
+                  select: {
+                    id: true,
+                    name: true,
+                    slug: true,
+                  }
+                },
+              },
             }
           }
         }
       }
-    })
+    });
 
-    return res.status(200).json(myEvents);
+    const arr = {};
+
+    myEvents.forEach(element => {
+      const idx = element.createdAt.toLocaleDateString('pt-BR')
+      if (arr[String(idx)]) {
+        arr[String(idx)].push(element.event);
+      }
+      else {
+        arr[String(idx)] = [element.event];
+      }
+    });
+
+    return res.status(200).json(arr);
   }
 
   async registerEvents(req: Request, res: Response) {
@@ -281,17 +299,36 @@ class UserController {
         }
       }
     });
-    
-    if (isExists) throw new AppError(`${isExists.eventId} já cadastrado(a).`);
-    
-    let registerEvents = await prisma.usersEvents.create({
-      data: {
-        eventId: eventId,
-        userId: userId,
-      },
+
+    if (isExists) throw new AppError(`Você já está cadastrado(a) neste evento.`);
+
+    const event = await prisma.event.findUnique({
+      where: {
+        id: eventId,
+      }
     });
 
-    return res.json(registerEvents);
+    if (event) {
+      const userEvent = await prisma.usersEvents.create({
+        data: {
+          eventId: eventId,
+          userId: userId,
+        },
+        include: {
+          event: {
+            include: {
+              eventsCategories: true,
+            }
+          }
+        }
+      });
+
+      return res.json(userEvent);
+    }
+    else {
+      throw new AppError('Evento não encontado.', 404);
+    }
+
   }
 }
 

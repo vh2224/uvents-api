@@ -16,7 +16,7 @@ import verifyJWT from "./services/verifyJwt";
 import uploadImage from "./services/firebase";
 import authService from "./services/authService";
 
-import { ERole, EStatus } from "@prisma/client";
+import { ERole } from "@prisma/client";
 
 const router = Router();
 
@@ -47,16 +47,16 @@ router.post('/auth', userController.auth);
 
 // User
 
-router.get('/users', authService(['superadmin', 'admin', 'coordinator']), 
+router.get('/users', authService(['superadmin', 'admin', 'coordinator']),
   celebrate({
     [Segments.PARAMS]: {
       search: Joi.string(),
     }
   }, { abortEarly: false, messages: messages }),
- userController.getUsers);
+  userController.getUsers);
 
-router.post('/users', 
-  authService(['superadmin', 'admin', 'coordinator']), 
+router.post('/users',
+  authService(['superadmin', 'admin', 'coordinator']),
   urlencoded({ extended: true }),
   celebrate({
     [Segments.BODY]: {
@@ -87,15 +87,16 @@ router.get('/users/events', verifyJWT, authService(['superadmin', 'admin', 'coor
 
 router.get('/courses', verifyJWT, authService(['superadmin', 'admin', 'coordinator']), courseController.getAllCourses);
 
-router.post('/courses', 
-  verifyJWT, 
+router.post('/courses',
+  verifyJWT,
   authService(['superadmin', 'admin']),
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().min(5).required(),
       campusId: Joi.string().guid().required(),
-  }},
-{ abortEarly: false, messages: messages }), courseController.createCourse);
+    }
+  },
+    { abortEarly: false, messages: messages }), courseController.createCourse);
 
 router.get('/courses/categories', courseController.getCourseCategories);
 
@@ -104,8 +105,8 @@ router.get('/courses/categories', courseController.getCourseCategories);
 
 router.get('/campus', campusController.find);
 
-router.post('/campus', 
-  authService(['superadmin', 'admin']), 
+router.post('/campus',
+  authService(['superadmin', 'admin']),
   Multer.single('file'),
   celebrate({
     [Segments.BODY]: {
@@ -125,8 +126,8 @@ router.post('/campus',
       universityId: Joi.string().guid().required(),
       stateId: Joi.string().guid().required(),
     }
-  }, 
-{ abortEarly: false, messages: messages }), campusController.create);
+  },
+    { abortEarly: false, messages: messages }), campusController.create);
 
 export { router };
 
@@ -136,17 +137,17 @@ export { router };
 router.get('/university', univerityController.find);
 
 router.post('/university',
-  authService(['superadmin', 'admin']), 
+  authService(['superadmin', 'admin']),
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().min(3).required(),
     },
-  }, 
-  { abortEarly: false, messages: messages }),
+  },
+    { abortEarly: false, messages: messages }),
   univerityController.create);
 
 router.patch('/university/:id',
-  authService(['superadmin', 'admin']), 
+  authService(['superadmin', 'admin']),
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.string().guid().required(),
@@ -154,27 +155,27 @@ router.patch('/university/:id',
     [Segments.BODY]: {
       name: Joi.string().min(3).required(),
     },
-  }, 
-  { abortEarly: false, messages: messages }),
+  },
+    { abortEarly: false, messages: messages }),
   univerityController.update);
 
-  // Category
+// Category
 
 router.get('/category', categoryController.find);
 
 router.post('/category',
-  authService(['superadmin', 'admin']), 
+  authService(['superadmin', 'admin']),
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().min(3).required(),
       slug: Joi.string().min(3).required(),
     },
-  }, 
-  { abortEarly: false, messages: messages }),
+  },
+    { abortEarly: false, messages: messages }),
   categoryController.create);
 
 router.patch('/category/:id',
-  authService(['superadmin', 'admin']), 
+  authService(['superadmin', 'admin']),
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.string().guid().required(),
@@ -183,87 +184,90 @@ router.patch('/category/:id',
       name: Joi.string().min(3).required(),
       slug: Joi.string().min(3).required(),
     },
-  }, 
-  { abortEarly: false, messages: messages }),
+  },
+    { abortEarly: false, messages: messages }),
   categoryController.update);
 
-  // Event
-  //finalizar rotas eventos
-  router.get('/event', eventController.find);
+// Event
 
-  router.post('/event',
-  authService(['superadmin', 'admin']), 
+router.get('/event', eventController.find);
+router.get('/event/:id', eventController.findById);
+router.get('/categories/events', eventController.findEventsByCategories);
+
+router.post('/event',
+  authService(['superadmin', 'admin']),
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().min(3).required(),
-      qrCodeUrl: Joi.string().pattern(new RegExp('((http|https)://)(www.)?[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)')).required(), 
-      startDate: Joi.date().min(5).required(), 
+      qrCodeUrl: Joi.string().pattern(new RegExp('((http|https)://)(www.)?[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)')).required(),
+      startDate: Joi.date().min(5).required(),
       endDate: Joi.date().min(5).required(),
       images: Joi.string().min(10).required(),
-      description: Joi.string().min(10).required(), 
+      description: Joi.string().min(10).required(),
       price: Joi.number().min(1).required(),
       amoutHours: Joi.number().min(1).required(),
       modality: Joi.string().min(4).required(),
-      meetingUrl: Joi.string().pattern(new RegExp('((http|https)://)(www.)?[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)')).required(), 
+      meetingUrl: Joi.string().pattern(new RegExp('((http|https)://)(www.)?[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)')).required(),
       userId: Joi.string().guid().required(),
       cep: Joi.string().pattern(new RegExp('[0-9]{5}-[0-9]{3}')).required(),
       logradouro: Joi.string().min(5).required(),
       number: Joi.number().min(1).required(),
       district: Joi.string().min(4).required(),
       city: Joi.string().min(4).required(),
-      address: Joi.string().min(5).required(), 
+      address: Joi.string().min(5).required(),
       complement: Joi.string().min(5),
-      state: Joi.string().min(3).required(), 
-      country: Joi.string().min(4).required(), 
+      state: Joi.string().min(3).required(),
+      country: Joi.string().min(4).required(),
       longitude: Joi.string().min(5).required(),
       latitude: Joi.string().min(5).required(),
     },
-  }, 
-  { abortEarly: false, messages: messages }),
+  },
+    { abortEarly: false, messages: messages }),
   eventController.create);
 
 router.patch('/event/:id',
-  authService(['superadmin', 'admin']), 
+  authService(['superadmin', 'admin']),
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.string().guid().required(),
     },
     [Segments.BODY]: {
       name: Joi.string().min(3).required(),
-      qrCodeUrl: Joi.string().pattern(new RegExp('((http|https)://)(www.)?[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)')).required(), 
-      startDate: Joi.date().min(5).required(), 
+      qrCodeUrl: Joi.string().pattern(new RegExp('((http|https)://)(www.)?[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)')).required(),
+      startDate: Joi.date().min(5).required(),
       endDate: Joi.date().min(5).required(),
       images: Joi.string().min(10).required(),
-      description: Joi.string().min(10).required(), 
+      description: Joi.string().min(10).required(),
       price: Joi.number().min(1).required(),
       amoutHours: Joi.number().min(1).required(),
       modality: Joi.string().min(4).required(),
-      meetingUrl: Joi.string().pattern(new RegExp('((http|https)://)(www.)?[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)')).required(), 
+      meetingUrl: Joi.string().pattern(new RegExp('((http|https)://)(www.)?[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)')).required(),
       userId: Joi.string().guid().required(),
       cep: Joi.string().pattern(new RegExp('[0-9]{5}-[0-9]{3}')).required(),
       logradouro: Joi.string().min(5).required(),
       number: Joi.number().min(1).required(),
       district: Joi.string().min(4).required(),
       city: Joi.string().min(4).required(),
-      address: Joi.string().min(5).required(), 
+      address: Joi.string().min(5).required(),
       complement: Joi.string().min(5),
-      state: Joi.string().min(3).required(), 
-      country: Joi.string().min(4).required(), 
+      state: Joi.string().min(3).required(),
+      country: Joi.string().min(4).required(),
       longitude: Joi.string().min(5).required(),
       latitude: Joi.string().min(5).required(),
     },
-  }, 
-  { abortEarly: false, messages: messages }),
+  },
+    { abortEarly: false, messages: messages }),
   eventController.update);
 
-  // UsersEvents
+// UsersEvents
 
 router.post('/users/events/:eventId',
-  authService(['superadmin', 'admin', 'student', 'coordinator']), 
+  verifyJWT,
+  authService(['superadmin', 'admin', 'student', 'coordinator']),
   celebrate({
     [Segments.PARAMS]: {
       eventId: Joi.string().guid().required(),
     },
-  }, 
-  { abortEarly: false, messages: messages }),
- userController.registerEvents);
+  },
+    { abortEarly: false, messages: messages }),
+  userController.registerEvents);
