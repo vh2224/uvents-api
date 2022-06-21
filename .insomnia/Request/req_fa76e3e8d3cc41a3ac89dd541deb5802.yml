@@ -1,7 +1,7 @@
 _id: req_fa76e3e8d3cc41a3ac89dd541deb5802
 type: Request
 parentId: fld_823cc06a49d74b639dba020a4e6194ae
-modified: 1655820509958
+modified: 1655821121335
 created: 1654827904565
 url: "{{ _.base_url }}/courses"
 name: Create
@@ -27,7 +27,7 @@ authentication:
   prefix: ""
   token: "{% response 'body', 'req_65932dad6772414b96682a0f960c7eac',
     'b64::JC50b2tlbg==::46b', 'never', 60 %}"
-metaSortKey: -1651338726412.9688
+metaSortKey: 100
 isPrivate: false
 settingStoreCookies: true
 settingSendCookies: true

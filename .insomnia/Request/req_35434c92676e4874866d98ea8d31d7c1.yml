@@ -1,7 +1,7 @@
 _id: req_35434c92676e4874866d98ea8d31d7c1
 type: Request
 parentId: fld_da8dacdac2a341bc870ebd17168b7895
-modified: 1655820615066
+modified: 1655838069287
 created: 1654883674774
 url: "{{ _.base_url }}/categories/events"
 name: List Events By Categories
@@ -14,7 +14,7 @@ authentication:
   type: bearer
   token: "{% response 'body', 'req_65932dad6772414b96682a0f960c7eac',
     'b64::JC50b2tlbg==::46b', 'never', 60 %}"
-metaSortKey: -1654883674774
+metaSortKey: 100
 isPrivate: false
 settingStoreCookies: true
 settingSendCookies: true

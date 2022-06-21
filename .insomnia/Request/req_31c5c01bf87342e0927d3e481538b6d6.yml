@@ -1,7 +1,7 @@
 _id: req_31c5c01bf87342e0927d3e481538b6d6
 type: Request
 parentId: fld_50fe8e22954f4325ac3819d92ede6bd0
-modified: 1655820575621
+modified: 1655821121368
 created: 1654827904533
 url: "{{ _.base_url }}/users/course/d3bf8868-4229-493f-9e32-90ace6271ea4"
 name: List
@@ -27,7 +27,7 @@ authentication:
   prefix: ""
   token: "{% response 'body', 'req_0f37c8b287944718ad88013adbf04ecd',
     'b64::JC50b2tlbg==::46b', 'never', 60 %}"
-metaSortKey: -1651342214175
+metaSortKey: 0
 isPrivate: false
 settingStoreCookies: true
 settingSendCookies: true

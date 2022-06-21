@@ -1,7 +1,7 @@
 _id: req_009de284bd8946d6b434503d99b1a7e7
 type: Request
 parentId: fld_77b50cf6d4954da89dab5bb139babf23
-modified: 1655820603180
+modified: 1655821121348
 created: 1654827904539
 url: "{{ _.base_url }}/users/avatar"
 name: UpdateAvatar
@@ -26,7 +26,7 @@ authentication:
   prefix: ""
   token: "{% response 'body', 'req_0f37c8b287944718ad88013adbf04ecd',
     'b64::JC50b2tlbg==::46b', 'never', 60 %}"
-metaSortKey: -1651230741632
+metaSortKey: 800
 isPrivate: false
 settingStoreCookies: true
 settingSendCookies: true
