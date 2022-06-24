@@ -1,14 +1,22 @@
 _id: req_78a0be5bdd3b4b22b478809b2e70fa44
 type: Request
 parentId: fld_da8dacdac2a341bc870ebd17168b7895
-modified: 1655821138895
+modified: 1656027766607
 created: 1655076185847
 url: "{{ _.base_url }}/users/events/4acd1c16-5a02-41f9-8cf5-dd05af797a8e"
 name: Register Presence
 description: ""
 method: POST
 body: {}
-parameters: []
+parameters:
+  - id: pair_3e28b7ff4c324778b18d764dd5dd7c2e
+    name: latitude
+    value: "-22.4092606"
+    description: ""
+  - id: pair_bed77dd9973c424d89cfc952fb596993
+    name: longitude
+    value: "-43.6662113"
+    description: ""
 headers: []
 authentication:
   type: bearer
