@@ -276,19 +276,7 @@ class UserController {
       }
     });
 
-    const arr = {};
-
-    myEvents.forEach(element => {
-      const idx = element.createdAt.toLocaleDateString('pt-BR')
-      if (arr[String(idx)]) {
-        arr[String(idx)].push(element.event);
-      }
-      else {
-        arr[String(idx)] = [element.event];
-      }
-    });
-
-    return res.status(200).json(arr);
+    return res.status(200).json(myEvents);
   }
 
   async registerEvents(req: Request, res: Response) {

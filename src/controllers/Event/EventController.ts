@@ -5,6 +5,7 @@ import { PrismaClient, Event } from "@prisma/client";
 const prisma = new PrismaClient();
 
 import AppError from '../../errors/AppError';
+import { date } from 'joi';
 
 class EventController {
 
@@ -149,6 +150,72 @@ class EventController {
 
     return res.status(200).json(categories);
   }
+
+  async findFutureEventsByCategories(req: Request, res: Response) {
+
+    const categories = await prisma.category.findMany({
+      select: {
+        name: true,
+        EventsCategories: {
+          include: {
+            event: true,
+          }
+        },
+      },
+      where: {
+        EventsCategories: {
+          every: {
+            event: {
+              endDate: {
+                gte: new Date(),
+              }
+            }
+          }
+        }
+      },
+    });
+
+    return res.status(200).json(categories);
+  }
+
+  async countUsersPresenceConfirmation(req: Request, res: Response) {
+
+    const { eventId }  = req.params;
+
+    const users = await prisma.usersEvents.findMany({
+      where: {
+        event: {
+          id: eventId,
+        },
+      },
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            photoUrl: true,
+          },
+        },
+      },
+      take: 3,
+    });
+
+    const count = await prisma.usersEvents.aggregate({
+      _count: true,
+      where: {
+        eventId: eventId,
+      }
+    });
+
+    const result = {
+      users: users,
+      totalCountPresence: count._count,
+    }
+
+    return res.status(200).json(result);
+  }
+
+
 }
 
 export default EventController;

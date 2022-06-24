@@ -193,6 +193,7 @@ router.patch('/category/:id',
 router.get('/event', eventController.find);
 router.get('/event/:id', eventController.findById);
 router.get('/categories/events', eventController.findEventsByCategories);
+router.get('/categories/events/future', eventController.findFutureEventsByCategories);
 
 router.post('/event',
   authService(['superadmin', 'admin']),
@@ -260,6 +261,11 @@ router.patch('/event/:id',
   eventController.update);
 
 // UsersEvents
+
+router.get('/users/presence/event/:eventId',
+  verifyJWT,
+  authService(['superadmin', 'admin', 'student', 'coordinator']),
+  eventController.countUsersPresenceConfirmation);
 
 router.post('/users/events/:eventId',
   verifyJWT,
