@@ -3,4 +3,8 @@ node_modules
 
 # folder
 
+package-lock.json
+
+yarn.lock
+
 seeds/
