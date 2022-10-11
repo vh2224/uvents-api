@@ -4,10 +4,8 @@
   "main": "src/server.ts",
   "license": "MIT",
   "scripts": {
-    "start": "tsc && node dist/server.js",
-    "postinstall": "tsc && mv -i -v public dist/ && rm -v -rf src",
-    "watch-node": "nodemon dist/index.js",
-    "watch-ts": "tsc -w",
+    "start": "node dist/server.js",
+    "postinstall": "tsc",
     "dev": "ts-node-dev --transpile-only src/server.ts"
   },
   "dependencies": {
