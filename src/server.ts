@@ -4,11 +4,21 @@ import { router } from './routes';
 import { errors } from 'celebrate';
 import cors from 'cors';
 
+
 import AppError from './errors/AppError';
+import process from 'process';
+const port = process.env.PORT || 5005;
+console.log(port);
 
 const app = express();
 
-app.use(cors())
+app.use(cors({
+    origin: "*",
+    methods: "GET,PUT,POST,DELETE",
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+  }
+))
 
 app.use(express.json());
 app.use(express.urlencoded());
@@ -23,7 +33,7 @@ app.use((error: Error, req: Request, res: Response, _: NextFunction) => {
       status: 'Error',
       error: error.message,
     });
-  } 
+  }
 
   console.log(error);
 
@@ -33,4 +43,4 @@ app.use((error: Error, req: Request, res: Response, _: NextFunction) => {
   });
 });
 
-app.listen('3000', () => console.log('server is running! 🎉'));
+app.listen(port, () => console.log(`server is running! 🎉 ${port}`));
